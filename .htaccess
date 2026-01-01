@@ -1,0 +1,42 @@
+# Apache 配置文件 - 确保 API 正常工作
+
+# 启用重写引擎（如果需要 URL 重写）
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    
+    # 不要重写 API 路径
+    RewriteCond %{REQUEST_URI} ^/api/ [NC]
+    RewriteRule ^ - [L]
+    
+    # 不要重写 PHP 文件
+    RewriteCond %{REQUEST_URI} \.php$ [NC]
+    RewriteRule ^ - [L]
+</IfModule>
+
+# 确保 PHP 文件可以被执行
+<FilesMatch "\.php$">
+    SetHandler application/x-httpd-php
+</FilesMatch>
+
+# 允许 CORS（如果需要）
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type"
+</IfModule>
+
+# 设置默认字符集
+AddDefaultCharset UTF-8
+
+# 确保 JSON 文件使用正确的 MIME 类型
+<IfModule mod_mime.c>
+    AddType application/json .json
+</IfModule>
+
+# 禁止访问敏感文件
+<FilesMatch "^(\.htaccess|\.git|config|\.user\.ini)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+

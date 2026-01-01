@@ -1,0 +1,12 @@
+# 最简单的 .htaccess - 如果上面的不工作，用这个替换
+# 只确保 PHP 文件可以执行，不做任何重定向
+
+# 禁止访问敏感文件
+<FilesMatch "^(\.htaccess|\.git|config|\.user\.ini)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# 设置默认字符集
+AddDefaultCharset UTF-8
+

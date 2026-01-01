@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0F4C81">
+    <title>智慧家教服务协议</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/AppImages/ios/32.png">
+    <link rel="apple-touch-icon" href="assets/icons/AppImages/ios/180.png">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 100%); 
+            font-family: "SimSun", "Songti SC", "Microsoft YaHei", serif; 
+            margin: 0; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .toolbar {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 12px;
+        }
+        .btn-tool {
+            background: rgba(99, 102, 241, 0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-tool:hover {
+            background: rgba(99, 102, 241, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+        .page { 
+            background: white; 
+            width: 210mm; 
+            min-height: 297mm; 
+            padding: 20mm; 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3); 
+            box-sizing: border-box; 
+            position: relative;
+            margin-top: 80px;
+        }
+        h1 { 
+            text-align: center; 
+            font-size: 28px; 
+            margin-bottom: 40px; 
+            color: #000; 
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .header-info { 
+            display: flex; 
+            justify-content: space-between; 
+            margin-bottom: 30px; 
+            font-family: sans-serif; 
+            font-size: 14px; 
+            color: #666;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e5e5e5;
+        }
+        .section { 
+            margin-bottom: 25px; 
+            line-height: 2; 
+            color: #333; 
+            font-size: 15px;
+        }
+        .bold { 
+            font-weight: bold; 
+            text-decoration: underline; 
+            padding: 0 5px;
+            color: #1a1a1a;
+        }
+        .sign-area { 
+            margin-top: 60px; 
+            display: flex; 
+            justify-content: space-between;
+            padding-top: 30px;
+            border-top: 2px solid #e5e5e5;
+        }
+        .sign-box { 
+            width: 45%;
+            position: relative;
+        }
+        .sign-box p:first-child {
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #666;
+        }
+        .signature {
+            font-family: "KaiTi", "楷体", cursive;
+            font-size: 28px;
+            color: #1a1a1a;
+            min-height: 60px;
+            position: relative;
+            opacity: 0;
+            animation: signatureWrite 2s ease-out forwards;
+        }
+        @keyframes signatureWrite {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .signature::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #6366F1, #A855F7);
+            animation: underlineDraw 1.5s ease-out 0.5s forwards;
+        }
+        @keyframes underlineDraw {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+        .seal { 
+            position: absolute; 
+            right: 50px; 
+            bottom: 50px; 
+            width: 150px; 
+            height: 150px; 
+            border: 4px solid #d93025; 
+            border-radius: 50%; 
+            color: #d93025; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 18px; 
+            font-weight: bold; 
+            transform: rotate(-20deg);
+            opacity: 0;
+            animation: sealStamp 1s ease-out 2s forwards;
+            pointer-events: none;
+            box-shadow: 0 4px 12px rgba(217, 48, 37, 0.3);
+        }
+        @keyframes sealStamp {
+            0% {
+                opacity: 0;
+                transform: rotate(-20deg) scale(0.5);
+            }
+            50% {
+                transform: rotate(-15deg) scale(1.1);
+            }
+            100% {
+                opacity: 0.9;
+                transform: rotate(-20deg) scale(1);
+            }
+        }
+        .seal-inner { 
+            border: 2px solid #d93025; 
+            width: 130px; 
+            height: 130px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center;
+            line-height: 1.4;
+        }
+        .watermark { 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%) rotate(-45deg); 
+            font-size: 80px; 
+            color: rgba(0,0,0,0.05); 
+            font-weight: bold; 
+            white-space: nowrap; 
+            pointer-events: none;
+            z-index: 0;
+        }
+        @media print { 
+            body { 
+                background: white;
+                padding: 0;
+            }
+            .toolbar {
+                display: none;
+            }
+            .page { 
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+            }
+            .watermark {
+                opacity: 0.3;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="toolbar">
+        <button class="btn-tool" onclick="window.print()">
+            <i class="fas fa-file-pdf"></i> 导出 PDF / 打印
+        </button>
+        <button class="btn-tool" onclick="window.close()">
+            <i class="fas fa-times"></i> 关闭
+        </button>
+    </div>
+
+<div class="page">
+    <div class="watermark">智慧家教桥 电子合同</div>
+    <div class="header-info">
+        <span id="contractNo">合同编号：加载中...</span>
+        <span id="signDate">签署日期：加载中...</span>
+    </div>
+
+    <h1>家教服务电子协议</h1>
+
+    <div class="section">
+        <strong>甲方（学员）：</strong><span id="uName" class="bold">...</span> <br>
+        <strong>联系电话：</strong><span id="uPhone" class="bold">...</span>
+    </div>
+
+    <div class="section">
+        <strong>乙方（教员）：</strong><span id="tName" class="bold">...</span> <br>
+        <strong>认证资质：</strong><span id="tSchool" class="bold">平台认证教员</span>
+    </div>
+
+    <div class="section" id="termsSection">
+        <p>加载中...</p>
+    </div>
+
+    <div class="sign-area">
+        <div class="sign-box">
+            <p>甲方签署（电子）：</p>
+            <p class="signature" id="signU">...</p>
+        </div>
+        <div class="sign-box">
+            <p>乙方签署（电子）：</p>
+            <p class="signature" id="signT" style="animation-delay: 1s;">...</p>
+        </div>
+    </div>
+
+    <div class="seal">
+        <div class="seal-inner">智慧家教桥<br>业务专用章</div>
+    </div>
+</div>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get('id');
+
+    if(!orderId) { alert('参数缺失'); window.close(); }
+
+    // 判断角色，决定调用哪个接口查询
+    const tutorId = localStorage.getItem('tutorId');
+    const userPhone = localStorage.getItem('userPhone');
+    
+    let apiAction = tutorId ? 'teacher_api.php' : 'user_api.php';
+    let actionName = tutorId ? 'get_bookings' : 'get_my_bookings';
+    let queryParam = tutorId ? `name=${encodeURIComponent(localStorage.getItem('tutorName'))}` : `phone=${userPhone}`;
+    
+    // 复用现有的获取订单列表接口，并在前端筛选
+    fetch(`api/${apiAction}?action=${actionName}&${queryParam}&_t=${Date.now()}`)
+    .then(r=>r.json())
+    .then(res => {
+        if(res.status === 'success') {
+            const order = res.data.find(o => o.id == orderId);
+            if(order) {
+                // 1. 判断是否线下课
+                const isOffline = order.class_type === '线下上门';
+
+                // 2. 动态修改标题
+                const titleEl = document.querySelector('h1');
+                titleEl.innerText = isOffline ? "家教服务协议 (线下上门版)" : "在线云课堂服务协议";
+                titleEl.style.color = isOffline ? "#d93025" : "#6366F1"; // 线下红色，线上蓝色
+
+                // 3. 填充基础数据
+                document.getElementById('contractNo').innerText = "合同编号：WTB-" + new Date(order.create_time).getTime() + "-" + order.id;
+                document.getElementById('signDate').innerText = "生成日期：" + order.create_time.split(' ')[0];
+                
+                document.getElementById('uName').innerText = order.user_phone.substr(0,3)+"****"+order.user_phone.substr(7); 
+                document.getElementById('uPhone').innerText = order.user_phone;
+                document.getElementById('tName').innerText = order.tutor_name;
+
+                // 4. 动态生成核心条款
+                const termSection = document.getElementById('termsSection');
+                if(isOffline) {
+                    termSection.innerHTML = `
+                        <p>甲乙双方经友好协商，依托“智慧家教桥”平台达成如下<strong>线下上门</strong>家教服务协议：</p>
+                        <p>1. <strong>服务模式：</strong> <span class="bold">线下上门 (面对面授课)</span>。</p>
+                        <p>2. <strong>服务时间：</strong> <span class="bold">${order.lesson_time}</span>。</p>
+                        <p>3. <strong>服务地点：</strong> 甲方提供的安全教学场所（具体以订单备注地址为准）。</p>
+                        <p>4. <strong>人身安全：</strong> 乙方在上门过程中及服务期间应注意交通安全。甲方需保障教学环境的安全性。</p>
+                        <p>5. <strong>服务费用：</strong> 共计人民币 <span class="bold">${order.price}</span> 元。已包含交通补贴（如有），由平台担保交易。</p>
+                        <p>6. <strong>违约责任：</strong> 线下课程如需取消，需提前24小时通知，否则需承担相应的空跑费。</p>
+                    `;
+                } else {
+                    termSection.innerHTML = `
+                        <p>甲乙双方经友好协商，依托“智慧家教桥”平台达成如下<strong>在线云课堂</strong>家教服务协议：</p>
+                        <p>1. <strong>服务模式：</strong> <span class="bold">线上云教室 (远程辅导)</span>。</p>
+                        <p>2. <strong>服务时间：</strong> <span class="bold">${order.lesson_time}</span>。</p>
+                        <p>3. <strong>服务形式：</strong> 通过智慧家教桥“云教室”或双方约定的第三方远程会议工具。</p>
+                        <p>4. <strong>网络保障：</strong> 双方应确保网络环境稳定。如因一方网络故障导致课程无法进行，应另行协商补课。</p>
+                        <p>5. <strong>隐私保护：</strong> 未经对方许可，任何一方不得私自录制课程内容并在互联网传播。</p>
+                        <p>6. <strong>服务费用：</strong> 共计人民币 <span class="bold">${order.price}</span> 元。由平台担保交易。</p>
+                    `;
+                }
+                
+                document.getElementById('signU').innerText = "/ " + order.user_phone + " /";
+                document.getElementById('signT').innerText = "/ " + order.tutor_name + " /";
+            } else {
+                document.body.innerHTML = "<h2 style='color:white;text-align:center;margin-top:50px;'>未找到订单信息或无权查看</h2>";
+            }
+        }
+    });
+</script>
+</body>
+</html>

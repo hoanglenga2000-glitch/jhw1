@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0F4C81">
+    <title>在线云教室 | 智慧家教桥</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/AppImages/ios/32.png">
+    <link rel="apple-touch-icon" href="assets/icons/AppImages/ios/180.png">
+    <script src='https://meet.jit.si/external_api.js'></script>
+    <style>
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #312E81 100%);
+            color: white; 
+            font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            display: flex; 
+            flex-direction: column; 
+            height: 100vh; 
+            overflow: hidden; 
+        }
+        .header { 
+            height: 70px; 
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1.5px solid rgba(255,255,255,0.12); 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 0 30px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 100;
+        }
+        .logo { 
+            font-weight: 900; 
+            font-size: 1.3rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px;
+            background: linear-gradient(135deg, #FFFFFF, #E0E7FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .room-info { 
+            font-size: 1rem; 
+            color: #94A3B8;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .network-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .network-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: networkPulse 2s ease-in-out infinite;
+        }
+        .network-dot.excellent {
+            background: #10B981;
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+        }
+        .network-dot.good {
+            background: #F59E0B;
+            box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+        }
+        .network-dot.poor {
+            background: #EF4444;
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+        }
+        @keyframes networkPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.9); }
+        }
+        .network-text {
+            font-size: 0.8rem;
+            color: #94A3B8;
+            font-weight: 500;
+        }
+        .btn-exit { 
+            background: linear-gradient(135deg, #EF4444, #DC2626);
+            color: white; 
+            border: none; 
+            padding: 10px 24px; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+        .btn-exit:hover { 
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+        }
+        #meet-container { 
+            flex: 1; 
+            width: 100%; 
+            background: #000;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Jitsi控制栏自动隐藏 */
+        #meet-container iframe {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* 注入CSS以隐藏Jitsi底部控制栏（鼠标不移动时） */
+        #meet-container::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        body.idle #meet-container::after {
+            opacity: 1;
+        }
+        
+        /* 深色主题覆盖 */
+        .jitsi-container {
+            filter: brightness(0.95) contrast(1.1);
+        }
+        .loading { 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            text-align: center; 
+            pointer-events: none;
+            color: white;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="logo">🎥 智慧云教室</div>
+    <div class="room-info">
+        <span id="roomTitle">连接中...</span>
+        <div class="network-indicator">
+            <div class="network-dot excellent" id="networkDot"></div>
+            <span class="network-text" id="networkText">网络良好</span>
+        </div>
+    </div>
+    <button class="btn-exit" onclick="window.close()">退出教室</button>
+</div>
+<div id="meet-container"></div>
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const roomId = params.get('room');
+    const name = params.get('name');
+    if(!roomId || !name) { alert('参数错误'); window.close(); }
+    document.getElementById('roomTitle').innerText = `房间号：${roomId}`;
+    
+    // ================ 网络质量监测（模拟Ping值） ================
+    let networkQuality = 'excellent';
+    let lastMouseMove = Date.now();
+    
+    function updateNetworkIndicator() {
+        // 模拟网络质量检测（实际项目中应从WebRTC获取真实网络质量）
+        const ping = Math.random() * 100 + 20; // 模拟20-120ms延迟
+        const dot = document.getElementById('networkDot');
+        const text = document.getElementById('networkText');
+        
+        if (ping < 50) {
+            networkQuality = 'excellent';
+            dot.className = 'network-dot excellent';
+            text.textContent = `网络极佳 (${Math.round(ping)}ms)`;
+        } else if (ping < 100) {
+            networkQuality = 'good';
+            dot.className = 'network-dot good';
+            text.textContent = `网络良好 (${Math.round(ping)}ms)`;
+        } else {
+            networkQuality = 'poor';
+            dot.className = 'network-dot poor';
+            text.textContent = `网络较差 (${Math.round(ping)}ms)`;
+        }
+    }
+    
+    // 每3秒更新一次网络质量
+    setInterval(updateNetworkIndicator, 3000);
+    updateNetworkIndicator(); // 立即执行一次
+    
+    // ================ 自动隐藏控制栏 ================
+    function handleUserActivity() {
+        lastMouseMove = Date.now();
+        document.body.classList.remove('idle');
+        
+        clearTimeout(window.idleTimer);
+        window.idleTimer = setTimeout(() => {
+            document.body.classList.add('idle');
+        }, 3000); // 3秒无操作后隐藏
+    }
+    
+    document.addEventListener('mousemove', handleUserActivity);
+    document.addEventListener('mousedown', handleUserActivity);
+    document.addEventListener('keypress', handleUserActivity);
+    
+    // 初始化
+    handleUserActivity();
+    
+    // ================ Jitsi初始化 ================
+    window.onload = () => {
+        const api = new JitsiMeetExternalAPI('meet.jit.si', {
+            roomName: 'WisdomBridge_Class_' + roomId,
+            width: '100%', 
+            height: '100%',
+            parentNode: document.querySelector('#meet-container'),
+            userInfo: { displayName: decodeURIComponent(name) },
+            configOverwrite: { 
+                startWithAudioMuted: false, 
+                startWithVideoMuted: false, 
+                prejoinPageEnabled: false,
+                toolbarButtons: [
+                    'microphone', 'camera', 'closedcaptions', 'desktop',
+                    'chat', 'raisehand', 'videoquality', 'filmstrip',
+                    'invite', 'feedback', 'stats', 'settings',
+                    'hangup', 'tileview', 'download', 'help', 'mute-everyone'
+                ],
+                hideDisplayName: false,
+                defaultLanguage: 'zh',
+                disableThirdPartyRequests: false
+            },
+            interfaceConfigOverwrite: {
+                TOOLBAR_BUTTONS: [
+                    'microphone', 'camera', 'closedcaptions', 'desktop',
+                    'chat', 'raisehand', 'videoquality', 'filmstrip',
+                    'invite', 'feedback', 'stats', 'settings',
+                    'hangup', 'tileview', 'download', 'help', 'mute-everyone'
+                ],
+                SETTINGS_SECTIONS: ['devices', 'language', 'moderator', 'profile'],
+                SHOW_JITSI_WATERMARK: false,
+                SHOW_WATERMARK_FOR_GUESTS: false,
+                SHOW_BRAND_WATERMARK: false,
+                BRAND_WATERMARK_LINK: '',
+                SHOW_POWERED_BY: false,
+                DISPLAY_WELCOME_PAGE_CONTENT: false,
+                DISPLAY_WELCOME_PAGE_TOOLBAR_ADDITIONAL_CONTENT: false,
+                DISPLAY_WELCOME_FOOTER: false,
+                APP_NAME: '智慧云教室',
+                NATIVE_APP_NAME: '智慧云教室',
+                PROVIDER_NAME: '智慧家教桥'
+            }
+        });
+        
+        api.addEventListeners({ 
+            videoConferenceLeft: () => window.close(),
+            participantJoined: () => updateNetworkIndicator(),
+            participantLeft: () => updateNetworkIndicator()
+        });
+        
+        // 注入CSS以隐藏底部工具栏（当idle时）
+        setTimeout(() => {
+            const iframe = document.querySelector('#meet-container iframe');
+            if (iframe && iframe.contentDocument) {
+                const style = iframe.contentDocument.createElement('style');
+                style.textContent = `
+                    body.idle #react-root > div > div > div[class*="toolbox"] {
+                        transform: translateY(100%);
+                        transition: transform 0.3s ease;
+                    }
+                `;
+                iframe.contentDocument.head.appendChild(style);
+            }
+        }, 2000);
+    };
+</script>
+</body>
+</html>

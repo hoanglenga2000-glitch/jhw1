@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#0F172A">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="智慧家教桥">
+    <meta name="description" content="100% 实名认证大学生教员，来自顶尖985/211高校，为您的孩子提供最专业的一对一辅导服务">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#0F4C81">
+    
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/AppImages/ios/32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/AppImages/ios/32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/AppImages/android/android-launchericon-192-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/icons/AppImages/android/android-launchericon-512-512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/AppImages/ios/180.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/icons/AppImages/ios/152.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/icons/AppImages/ios/120.png">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <title>智慧家教桥 | 连接高校智慧</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* ✨ 电影级视觉系统 - 遵循 .cursorrules 宪法 */
+        :root { 
+            /* 🎨 配色方案 */
+            --primary: #6366F1; 
+            --primary-dark: #4F46E5;
+            --primary-light: #818CF8;
+            --primary-glow: rgba(99, 102, 241, 0.6); 
+            --accent: #F59E0B; 
+            --accent-dark: #D97706;
+            --accent-glow: rgba(245, 158, 11, 0.5);
+            --purple: #A855F7;
+            --pink: #EC4899;
+            --cyan: #06B6D4;
+            --success: #10B981;
+            --danger: #EF4444;
+            
+            /* 🌙 深色主题 */
+            --bg-primary: #0B0F19;
+            --bg-secondary: #0F172A;
+            --bg-tertiary: #1E1B4B;
+            --text-white: #FAFAFA; 
+            --text-gray: #94A3B8; 
+            --text-muted: #64748B;
+            
+            /* 🔮 玻璃拟态 */
+            --glass-bg: rgba(15, 23, 42, 0.75); 
+            --glass-bg-dark: rgba(11, 15, 25, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-border-light: rgba(255, 255, 255, 0.12);
+            
+            /* 🌟 阴影系统 */
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.25);
+            --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 40px var(--primary-glow);
+            --shadow-glow-accent: 0 0 40px var(--accent-glow);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text-white); 
+            min-height: 100vh; 
+            overflow-x: hidden; 
+            background: var(--bg-primary);
+            line-height: 1.6;
+        }
+        
+        /* ====== 🌌 动态光斑背景系统 ====== */
+        .aurora-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 40%, var(--bg-tertiary) 100%);
+        }
+        
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: blobFloat 20s ease-in-out infinite;
+        }
+        
+        .blob-1 {
+            width: 800px;
+            height: 800px;
+            top: -20%;
+            left: -10%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
+            animation-delay: 0s;
+        }
+        
+        .blob-2 {
+            width: 600px;
+            height: 600px;
+            top: 50%;
+            right: -15%;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, transparent 70%);
+            animation-delay: -7s;
+        }
+        
+        .blob-3 {
+            width: 500px;
+            height: 500px;
+            bottom: -10%;
+            left: 30%;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, transparent 70%);
+            animation-delay: -14s;
+        }
+        
+        .blob-4 {
+            width: 400px;
+            height: 400px;
+            top: 20%;
+            right: 20%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 70%);
+            animation-delay: -4s;
+        }
+        
+        @keyframes blobFloat {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25% { transform: translate(30px, -50px) scale(1.1) rotate(5deg); }
+            50% { transform: translate(-20px, 30px) scale(0.95) rotate(-5deg); }
+            75% { transform: translate(50px, 20px) scale(1.05) rotate(3deg); }
+        }
+        
+        /* ====== 🎯 导航栏 ====== */
+        header { 
+            position: fixed; 
+            top: 0; 
+            left: 0;
+            right: 0;
+            z-index: 1000; 
+            background: var(--glass-bg-dark);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            background: rgba(11, 15, 25, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-inner { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            padding: 16px 32px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+        }
+        
+        .logo:hover { transform: scale(1.05); }
+        
+        .logo img {
+            height: 50px;
+            width: auto;
+            display: block;
+        }
+        
+        .nav-menu { display: flex; gap: 6px; }
+        
+        .nav-item { 
+            color: var(--text-gray); 
+            font-weight: 500; 
+            cursor: pointer; 
+            padding: 10px 18px; 
+            border-radius: 10px;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.95rem;
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-item:hover::before, .nav-item.active::before { opacity: 1; }
+        .nav-item:hover, .nav-item.active { 
+            color: white; 
+            transform: translateY(-2px);
+        }
+        
+        /* ====== 🦸 Hero Section - 全屏沉浸式 ====== */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 32px 80px;
+            position: relative;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            z-index: 1;
+        }
+        
+        /* 流光渐变文字 */
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
+            background: linear-gradient(
+                135deg, 
+                #FFFFFF 0%, 
+                #E0E7FF 20%, 
+                #A5B4FC 40%, 
+                #818CF8 60%, 
+                #C7D2FE 80%, 
+                #FFFFFF 100%
+            );
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 8s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            margin-bottom: 48px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+        
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+        
+        .hero-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+        
+        .hero-badge i {
+            color: var(--accent);
+        }
+        
+        /* 搜索框 - 超级增强版 */
+        .search-wrapper {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .search-container { 
+            background: var(--glass-bg-dark);
+            backdrop-filter: blur(30px) saturate(180%);
+            border: 1.5px solid var(--glass-border);
+            padding: 8px; 
+            border-radius: 100px; 
+            display: flex;
+            box-shadow: 
+                var(--shadow-lg),
+                0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .search-container:focus-within {
+            border-color: var(--primary);
+            box-shadow: 
+                var(--shadow-lg),
+                0 0 0 1px rgba(99, 102, 241, 0.2) inset,
+                0 0 60px rgba(99, 102, 241, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .search-container input { 
+            flex: 1; 
+            background: transparent; 
+            border: none; 
+            padding: 16px 28px; 
+            color: white; 
+            font-size: 1.05rem; 
+            outline: none;
+        }
+        
+        .search-container input::placeholder {
+            color: var(--text-muted);
+        }
+        
+        /* ====== 🎨 通用按钮系统 ====== */
+        .btn { 
+            padding: 14px 32px; 
+            border-radius: 50px; 
+            font-weight: 600; 
+            font-size: 0.95rem; 
+            cursor: pointer; 
+            border: none; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+        
+        /* 涟漪效果 */
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+        
+        .btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn:hover { 
+            transform: translateY(-3px);
+        }
+        
+        .btn-primary { 
+            background: linear-gradient(135deg, var(--primary), var(--primary-light), var(--purple)); 
+            background-size: 200% 200%;
+            color: white; 
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+            animation: gradientMove 4s ease infinite;
+        }
+        
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .btn-primary:hover { 
+            box-shadow: 0 12px 36px rgba(99, 102, 241, 0.5);
+        }
+        
+        .btn-outline { 
+            background: rgba(255, 255, 255, 0.03); 
+            border: 1.5px solid var(--glass-border-light); 
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-outline:hover { 
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+        }
+        
+        .btn-gold {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white;
+            box-shadow: 0 8px 24px var(--accent-glow);
+        }
+        
+        .btn-gold:hover {
+            box-shadow: 0 12px 36px var(--accent-glow);
+        }
+        
+        /* ====== 📊 Section 布局 ====== */
+        .section {
+            padding: 100px 32px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #FFFFFF, #E0E7FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-subtitle {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+        }
+        
+        /* ====== 🏆 排行榜 ====== */
+        .leaderboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr 1fr;
+            gap: 24px;
+            align-items: end;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .rank-card {
+            text-align: center;
+            padding: 32px 24px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        
+        .rank-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .rank-card.rank-1 {
+            transform: scale(1.08);
+            background: linear-gradient(180deg, rgba(255, 215, 0, 0.15) 0%, var(--glass-bg) 100%);
+            border-color: rgba(255, 215, 0, 0.4);
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.2);
+            z-index: 2;
+        }
+        
+        .rank-card.rank-1:hover {
+            transform: scale(1.1) translateY(-8px);
+        }
+        
+        .rank-card.rank-2 {
+            background: linear-gradient(180deg, rgba(192, 192, 192, 0.1) 0%, var(--glass-bg) 100%);
+            border-color: rgba(192, 192, 192, 0.3);
+        }
+        
+        .rank-card.rank-3 {
+            background: linear-gradient(180deg, rgba(205, 127, 50, 0.1) 0%, var(--glass-bg) 100%);
+            border-color: rgba(205, 127, 50, 0.3);
+        }
+        
+        .rank-crown {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            display: block;
+            animation: crownBounce 3s ease-in-out infinite;
+        }
+        
+        @keyframes crownBounce {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        .rank-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 16px;
+            display: block;
+            border: 3px solid;
+            transition: transform 0.3s ease;
+        }
+        
+        .rank-card:hover .rank-avatar {
+            transform: scale(1.1);
+        }
+        
+        .rank-1 .rank-avatar { border-color: #FFD700; box-shadow: 0 0 30px rgba(255, 215, 0, 0.4); }
+        .rank-2 .rank-avatar { border-color: #C0C0C0; }
+        .rank-3 .rank-avatar { border-color: #CD7F32; }
+        
+        .rank-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .rank-school {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        
+        .rank-price {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        /* ====== 🎴 导师卡片 - 磨砂玻璃效果 ====== */
+        .tutor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 28px;
+        }
+        
+        .tutor-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: cardFadeIn 0.6s ease forwards;
+        }
+        
+        @keyframes cardFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 光晕边框效果 */
+        .tutor-card::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 26px;
+            background: linear-gradient(135deg, var(--primary), var(--purple), var(--accent));
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.4s ease;
+        }
+        
+        .tutor-card:hover::before {
+            opacity: 0.6;
+            filter: blur(8px);
+        }
+        
+        .tutor-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: transparent;
+            box-shadow: 
+                0 24px 64px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(99, 102, 241, 0.3);
+        }
+        
+        .tutor-card.vip {
+            border-color: rgba(245, 158, 11, 0.4);
+        }
+        
+        .tutor-card.vip::before {
+            background: linear-gradient(135deg, var(--accent), #F97316, #FBBF24);
+        }
+        
+        .vip-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 10;
+            box-shadow: 0 4px 16px var(--accent-glow);
+        }
+        
+        .card-banner {
+            height: 120px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.2), rgba(245, 158, 11, 0.15));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-banner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shine 4s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+        
+        .card-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--bg-secondary);
+            margin: -50px auto 16px;
+            display: block;
+            position: relative;
+            background: var(--bg-secondary);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            transition: transform 0.4s ease;
+        }
+        
+        .tutor-card:hover .card-avatar {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .card-body {
+            padding: 0 28px 28px;
+            text-align: center;
+        }
+        
+        .card-name {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #FFFFFF, #E0E7FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .card-tags {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .card-tag {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.1));
+            color: #A5B4FC;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+        
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--glass-border);
+        }
+        
+        .card-rating {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .card-price {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: white;
+        }
+        
+        .card-price span {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            font-weight: 400;
+        }
+        
+        /* ====== 💀 骨架屏加载 ====== */
+        .skeleton-card {
+            background: var(--glass-bg);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .skeleton-card .card-banner {
+            background: linear-gradient(90deg, rgba(30, 41, 59, 0.5), rgba(51, 65, 85, 0.5), rgba(30, 41, 59, 0.5));
+            background-size: 200% 100%;
+            animation: skeletonPulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes skeletonPulse {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        .skeleton-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(51, 65, 85, 0.5);
+            margin: -50px auto 16px;
+            animation: skeletonPulse 1.5s ease-in-out infinite;
+        }
+        
+        .skeleton-text {
+            height: 20px;
+            background: rgba(51, 65, 85, 0.5);
+            border-radius: 8px;
+            margin: 12px auto;
+            animation: skeletonPulse 1.5s ease-in-out infinite;
+        }
+        
+        .skeleton-text.title { width: 60%; height: 24px; }
+        .skeleton-text.tag { width: 80%; height: 32px; }
+        .skeleton-text.meta { width: 100%; height: 48px; margin-top: 20px; }
+        
+        /* ====== 🔔 通告栏 ====== */
+        .notice-banner {
+            background: rgba(245, 158, 11, 0.1);
+            border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+            backdrop-filter: blur(10px);
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .notice-banner.show {
+            max-height: 60px;
+            opacity: 1;
+        }
+        
+        .notice-banner.expanded {
+            max-height: 400px;
+            background: var(--glass-bg-dark);
+            border-color: var(--primary);
+        }
+        
+        .notice-header {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--accent);
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .notice-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .notice-icon-box {
+            width: 36px;
+            height: 36px;
+            background: rgba(245, 158, 11, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .notice-toggle-btn {
+            transition: transform 0.4s ease;
+        }
+        
+        .notice-banner.expanded .notice-toggle-btn {
+            transform: rotate(180deg);
+        }
+
+        .notice-body {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px 24px;
+            color: var(--text-gray);
+            line-height: 1.8;
+            opacity: 0;
+            transition: opacity 0.3s ease 0.1s;
+        }
+        
+        .notice-banner.expanded .notice-body {
+            opacity: 1;
+        }
+        
+        /* ====== 🏪 特性卡片 ====== */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        
+        .feature-card {
+            padding: 40px 32px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 0 40px rgba(99, 102, 241, 0.2);
+        }
+        
+        .feature-icon {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.1));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+        
+        .feature-card p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+        
+        /* ====== 🔻 加载更多指示器 ====== */
+        .load-trigger {
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--glass-border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* ====== 🦶 页脚 ====== */
+        footer {
+            background: var(--glass-bg-dark);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            padding: 80px 32px 32px;
+            margin-top: 80px;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+        }
+        
+        .footer-col h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .footer-link {
+            display: block;
+            color: var(--text-gray);
+            text-decoration: none;
+            margin-bottom: 12px;
+            transition: color 0.2s;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* ====== 🔲 模态框 ====== */
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal {
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px);
+            border: 1px solid var(--glass-border);
+            width: 440px;
+            padding: 48px;
+            border-radius: 28px;
+            text-align: center;
+            box-shadow: var(--shadow-lg), var(--shadow-glow);
+            animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 14px;
+            color: white;
+            margin-bottom: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+        
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+        
+        /* ====== 📱 用户菜单 ====== */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background: var(--glass-bg-dark);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            min-width: 160px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .dropdown-item {
+            padding: 14px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* ====== 📱 响应式 ====== */
+        @media (max-width: 1024px) {
+            .leaderboard-grid { grid-template-columns: 1fr; gap: 16px; }
+            .rank-card.rank-1 { transform: none; order: -1; }
+            .footer-content { grid-template-columns: 1fr 1fr; }
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .hero-title { font-size: 2.5rem; }
+            .hero-badges { flex-direction: column; align-items: center; }
+            .footer-content { grid-template-columns: 1fr; }
+            
+            /* 🎯 移动端：隐藏顶部Header */
+            header { display: none !important; }
+            
+            /* 🎯 增加底部安全区域 */
+            body { padding-bottom: 80px; }
+            footer { margin-bottom: 80px; }
+            
+            /* 🎯 显示移动端TabBar */
+            .mobile-tabbar { display: flex !important; }
+        }
+        
+        /* ====== 📱 移动端底部 TabBar ====== */
+        .mobile-tabbar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            padding-bottom: env(safe-area-inset-bottom, 10px);
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-top: 1px solid var(--glass-border);
+            z-index: 9999;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.4);
+        }
+        
+        .tabbar-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 8px 16px;
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 0.7rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        
+        .tabbar-item i {
+            font-size: 1.35rem;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .tabbar-item.active {
+            color: var(--primary);
+        }
+        
+        .tabbar-item.active i {
+            transform: scale(1.15) translateY(-2px);
+            filter: drop-shadow(0 4px 12px var(--primary-glow));
+            animation: tabBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @keyframes tabBounce {
+            0% { transform: scale(0.8) translateY(5px); }
+            50% { transform: scale(1.25) translateY(-5px); }
+            100% { transform: scale(1.15) translateY(-2px); }
+        }
+        
+        /* 中间大按钮 */
+        .tabbar-item-center {
+            position: relative;
+            margin-top: -30px;
+        }
+        
+        .tabbar-center-btn {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light), var(--purple));
+            background-size: 200% 200%;
+            animation: gradientMove 4s ease infinite;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .tabbar-item-center:active .tabbar-center-btn {
+            transform: scale(0.95);
+        }
+        
+        .tabbar-item-center span {
+            position: absolute;
+            bottom: -18px;
+            font-size: 0.65rem;
+            color: var(--primary);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        /* 消息小红点 */
+        .tabbar-badge {
+            position: absolute;
+            top: 0;
+            right: 8px;
+            width: 18px;
+            height: 18px;
+            background: var(--danger);
+            border-radius: 50%;
+            font-size: 0.65rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* ====== 🖱️ 全局滚动条优化 ====== */
+        /* 桌面端美化滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.4);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.6);
+        }
+        
+        /* 移动端隐藏滚动条但保留滚动功能 */
+        @media (max-width: 768px) {
+            html, body {
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            
+            html::-webkit-scrollbar,
+            body::-webkit-scrollbar {
+                display: none;
+            }
+            
+            /* 所有可滚动容器 */
+            .tutor-grid, .section, .modal {
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            
+            .tutor-grid::-webkit-scrollbar,
+            .section::-webkit-scrollbar,
+            .modal::-webkit-scrollbar {
+                display: none;
+            }
+        }
+        
+        /* ====== 👆 触控优化 ====== */
+        @media (max-width: 768px) {
+            /* 增大按钮点击热区 */
+            .btn {
+                min-height: 48px;
+                padding: 14px 28px;
+            }
+            
+            .hero-badge {
+                padding: 12px 20px;
+            }
+            
+            .nav-item {
+                padding: 12px 20px;
+            }
+            
+            /* 卡片触控优化 */
+            .tutor-card {
+                cursor: pointer;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            .tutor-card:active {
+                transform: scale(0.98);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 🌌 动态光斑背景 -->
+    <div class="aurora-canvas">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+    </div>
+    
+    <!-- 🔔 通告栏 -->
+    <div id="noticeBanner" class="notice-banner">
+        <div class="notice-header" onclick="toggleNotice()">
+            <div class="notice-title-wrap">
+                <div class="notice-icon-box"><i class="fas fa-bullhorn"></i></div>
+                <span id="noticeTitle">暂无公告</span>
+            </div>
+            <i class="fas fa-chevron-down notice-toggle-btn"></i>
+        </div>
+        <div class="notice-body">
+            <div id="noticeContent"></div>
+        </div>
+    </div>
+
+    <!-- 🎯 导航栏 -->
+    <header id="mainHeader">
+        <div class="nav-inner">
+            <a href="index.html" class="logo" onclick="event.preventDefault(); scrollToTop(); return false;" style="text-decoration:none; display:flex; align-items:center; gap:12px;">
+                <img src="assets/icons/logo-square-master.png.png" alt="智慧家教桥" style="height:50px; width:auto; display:block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span style="display:none; font-size:1.5rem; font-weight:800; color:white; align-items:center; gap:8px;"><i class='fas fa-graduation-cap' style='color:var(--primary)'></i> 智慧家教桥</span>
+            </a>
+            <nav class="nav-menu">
+                <div class="nav-item active" onclick="scrollToSection('hero')" id="nav-home">首页</div>
+                <div class="nav-item" onclick="scrollToSection('tutors')" id="nav-tutors">严选教员</div>
+                <div class="nav-item" onclick="location.href='resources.html'" id="nav-resources">学霸笔记</div>
+                <div class="nav-item" onclick="jumpToStudentCenter('courses')">我的课程</div>
+            </nav>
+            <div>
+                <span id="guest-btns">
+                    <button class="btn btn-outline" onclick="openAuth('login')">登录</button>
+                    <button class="btn btn-primary" onclick="openAuth('register')" style="margin-left:12px">注册</button>
+                    <a href="teacher_login.html" class="btn btn-gold" style="margin-left:12px">我是老师</a>
+                </span>
+                <span id="user-btns" style="display:none; position:relative;">
+                    <div style="cursor:pointer; display:flex; align-items:center; gap:10px;" onclick="toggleUserMenu()">
+                        <img src="assets/default_boy.png" id="navAvatar" style="width:36px; height:36px; border-radius:50%; border: 2px solid var(--glass-border);" onerror="this.src='assets/icons/AppImages/ios/57.png'">
+                        <span id="navUsername">用户</span>
+                        <i class="fas fa-chevron-down" style="font-size:0.8rem; color:var(--text-gray);"></i>
+                    </div>
+                    <div class="dropdown-menu" id="userDropdown">
+                        <div class="dropdown-item" onclick="jumpToStudentCenter('profile')">
+                            <i class="fas fa-user" style="margin-right:10px; color:var(--primary);"></i> 个人中心
+                        </div>
+                        <div class="dropdown-item" onclick="jumpToStudentCenter('wallet')">
+                            <i class="fas fa-wallet" style="margin-right:10px; color:var(--accent);"></i> 我的钱包
+                        </div>
+                        <div class="dropdown-item" style="color:var(--danger);" onclick="logout()">
+                            <i class="fas fa-sign-out-alt" style="margin-right:10px;"></i> 退出登录
+                        </div>
+                    </div>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 🦸 Hero Section -->
+    <section class="hero-section" id="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">连接高校智慧<br>点亮学子未来</h1>
+            <p class="hero-subtitle">100% 实名认证大学生教员，来自顶尖985/211高校，为您的孩子提供最专业的一对一辅导服务</p>
+            
+            <div class="hero-badges">
+                <div class="hero-badge"><i class="fas fa-shield-alt"></i> 100%实名认证</div>
+                <div class="hero-badge"><i class="fas fa-graduation-cap"></i> 985/211名校</div>
+                <div class="hero-badge"><i class="fas fa-hand-holding-usd"></i> 不满意退款</div>
+            </div>
+            
+            <div class="search-wrapper">
+                <div class="search-container">
+                    <input type="text" id="homeSearch" placeholder="搜索科目、教员姓名或学校..." onkeyup="if(event.key==='Enter') doSearch()">
+                    <button class="btn btn-primary" onclick="doSearch()">
+                        <i class="fas fa-search"></i> 智能匹配
+                    </button>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🏆 排行榜 Section -->
+    <section class="section" id="leaderboard">
+        <div class="section-header">
+            <h2 class="section-title"><i class="fas fa-crown" style="color:#FFD700;"></i> 每周明星导师</h2>
+            <p class="section-subtitle">本周完成课程最多、最受欢迎的明星教员</p>
+        </div>
+        <div id="homeLeaderboard" class="leaderboard-grid">
+            <!-- 动态加载 -->
+    </div>
+    </section>
+
+    <!-- 🎴 教员列表 Section -->
+    <section class="section" id="tutors">
+        <div class="section-header">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
+                <div>
+                    <h2 class="section-title">严选教员列表</h2>
+                    <p class="section-subtitle">滑动浏览更多优秀教员</p>
+                </div>
+                <select id="filterSort" onchange="resetAndLoadTutors()" style="background:var(--glass-bg);border:1px solid var(--glass-border);color:white;padding:12px 24px;border-radius:50px;outline:none;cursor:pointer;">
+                    <option value="default">综合排序</option>
+                    <option value="rating">评分最高</option>
+                    <option value="price_asc">价格低→高</option>
+            </select>
+        </div>
+    </div>
+
+        <div id="tutorGrid" class="tutor-grid">
+            <!-- 骨架屏占位 -->
+        </div>
+        
+        <!-- 无限滚动触发器 -->
+        <div class="load-trigger" id="loadTrigger">
+            <div class="loading-spinner" id="loadingSpinner" style="display:none;"></div>
+        </div>
+    </section>
+
+    <!-- 🏪 特性 Section -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">为什么选择我们</h2>
+            <p class="section-subtitle">安全、透明、高效的家教对接服务</p>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-id-card-alt"></i></div>
+                <h3>100% 实名认证</h3>
+                <p>学信网核验学历，身份真实可靠</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                <h3>价格透明</h3>
+                <p>无中介费，平台担保，不满意全额退款</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-comments"></i></div>
+                <h3>真实评价</h3>
+                <p>完课后点评，所有评价真实有据可查</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🦶 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <div style="font-size:1.5rem; font-weight:800; margin-bottom:16px; display:flex; align-items:center; gap:12px;">
+                    <i class="fas fa-graduation-cap" style="color:var(--primary)"></i> 智慧家教桥
+                </div>
+                <p style="color:var(--text-gray); line-height:1.8;">连接高校优质教育资源，为中小学生提供靠谱、透明、高效的家教对接服务。</p>
+            </div>
+            <div class="footer-col">
+                <h3>平台服务</h3>
+                <a href="#tutors" class="footer-link">找老师</a>
+                <a href="resources.html" class="footer-link">找资料</a>
+                <a href="teacher_login.html" class="footer-link">教员入驻</a>
+            </div>
+            <div class="footer-col">
+                <h3>帮助支持</h3>
+                <a href="help.html" class="footer-link">帮助中心</a>
+                <a href="help.html" class="footer-link">常见问题</a>
+                <a href="help.html" class="footer-link">意见反馈</a>
+            </div>
+            <div class="footer-col">
+                <h3>联系我们</h3>
+                <p style="color:var(--text-gray); margin-bottom:8px;">客服热线: 400-888-6666</p>
+                <p style="color:var(--text-gray); margin-bottom:8px;">工作时间: 9:00 - 21:00</p>
+                <p style="color:var(--text-gray);">邮箱: support@tutor.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 智慧家教桥 Wisdom Tutoring Bridge. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- 🔲 登录/注册模态框 -->
+    <div class="overlay" id="authModal">
+        <div class="modal">
+            <h2 id="modalTitle" style="margin-bottom:32px; font-size:1.75rem;">欢迎登录</h2>
+            <input type="text" id="regName" class="form-input" placeholder="您的姓名" style="display:none">
+            <input type="text" id="authPhone" class="form-input" placeholder="手机号">
+            <input type="password" id="authPass" class="form-input" placeholder="密码">
+            <button class="btn btn-primary" onclick="handleAuth()" style="width:100%;justify-content:center;padding:16px;margin-top:8px;">
+                <span id="authBtnText">登录</span>
+            </button>
+            <div style="margin-top:24px; color:var(--text-gray); cursor:pointer;" onclick="toggleAuthMode()">
+                <span id="authToggleText">还没有账号？立即注册</span>
+            </div>
+            <div style="margin-top:12px; color:var(--text-muted); cursor:pointer;" onclick="closeAuthModal()">关闭</div>
+        </div>
+    </div>
+
+    <script>
+        /* ====== 🔧 全局API请求封装函数（深度调试系统V2） ====== */
+        const API_BASE = 'api/';
+        
+        /**
+         * 智能API请求函数 - 支持详细错误提示
+         * @param {string} url - API相对路径（如 'login.php'）
+         * @param {Object} options - fetch选项（method, body等）
+         * @param {boolean} showAlert - 是否显示弹窗（默认true）
+         * @returns {Promise} - 返回解析后的JSON数据
+         */
+        async function requestAPI(url, options = {}, showAlert = true) {
+            // 构建完整URL
+            let fullUrl = url;
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                // 移除可能的api/前缀，统一添加
+                fullUrl = API_BASE + url.replace(/^\/?api\//, '');
+            }
+            
+            try {
+                console.log('DEBUG: Requesting:', fullUrl);
+                const res = await fetch(fullUrl, options);
+                
+                // 获取响应文本
+                const text = await res.text();
+                console.log('DEBUG: Raw Response:', text.substring(0, 500));
+                
+                // 检查HTTP状态码
+                if (!res.ok) {
+                    const errorMsg = `服务器错误: ${res.status} ${res.statusText}\n路径: ${fullUrl}\n响应: ${text.substring(0, 300)}`;
+                    console.error('DEBUG: HTTP Error:', errorMsg);
+                    if (showAlert) alert(errorMsg);
+                    throw new Error(`HTTP ${res.status}`);
+                }
+                
+                // 检查响应是否为空
+                if (!text || text.trim().length === 0) {
+                    const errorMsg = `响应为空\n路径: ${fullUrl}\n请检查服务器是否正常返回数据`;
+                    console.error('DEBUG: Empty Response:', errorMsg);
+                    if (showAlert) alert(errorMsg);
+                    throw new Error('响应为空');
+                }
+                
+                // 尝试解析JSON
+                try {
+                    const data = JSON.parse(text);
+                    console.log('DEBUG: Parsed JSON:', data);
+                    return data;
+                } catch (jsonError) {
+                    // JSON解析失败，显示原始响应
+                    const errorMsg = `JSON解析失败\n路径: ${fullUrl}\n原始响应: ${text.substring(0, 500)}\n错误: ${jsonError.message}`;
+                    console.error('DEBUG: JSON Parse Error:', errorMsg);
+                    if (showAlert) alert(errorMsg);
+                    throw new Error('JSON解析失败');
+                }
+            } catch (error) {
+                // 网络错误（如跨域、连接失败）
+                if (error.message !== 'JSON解析失败' && !error.message.startsWith('HTTP')) {
+                    const errorMsg = `网络请求失败\n路径: ${fullUrl}\n错误: ${error.message || '未知错误'}`;
+                    console.error('DEBUG: Network Error:', errorMsg);
+                    if (showAlert) alert(errorMsg);
+                }
+                throw error;
+            }
+        }
+        
+        /* ====== 🎛️ 全局状态管理 ====== */
+        const State = {
+            currentPage: 1,
+            pageSize: 12,
+            isLoading: false,
+            hasMore: true,
+            searchKeyword: '',
+            sortBy: 'default',
+            tutors: []
+        };
+        
+        let curPhone = localStorage.getItem('userPhone');
+        let authMode = 'login';
+        let observer = null;
+
+        /* ====== 🚀 初始化 ====== */
+        document.addEventListener('DOMContentLoaded', () => {
+            if (curPhone) updateUI(localStorage.getItem('userName'));
+            loadTopNotice();
+            loadLeaderboard();
+            initInfiniteScroll();
+            loadTutors();
+            initScrollEffects();
+        });
+
+        /* ====== 📜 滚动效果 ====== */
+        function initScrollEffects() {
+            const header = document.getElementById('mainHeader');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        }
+
+        /* ====== 🔔 通告 ====== */
+        async function loadTopNotice() {
+            try {
+                const res = await requestAPI('public_api.php?action=get_latest_notices');
+                if (res.data && res.data.length > 0) {
+                    const notice = res.data[0];
+                    document.getElementById('noticeBanner').classList.add('show');
+                    document.getElementById('noticeTitle').innerText = notice.title;
+                    document.getElementById('noticeContent').innerText = notice.content;
+                }
+            } catch (error) {
+                console.error('DEBUG: loadTopNotice Error:', error);
+            }
+        }
+
+        function toggleNotice() {
+            document.getElementById('noticeBanner').classList.toggle('expanded');
+        }
+
+        /* ====== 🏆 排行榜 ====== */
+        async function loadLeaderboard() {
+            try {
+                const res = await requestAPI(`gamification_api.php?action=get_leaderboard&type=weekly&_t=${Date.now()}`);
+                if (res.status === 'success' && res.data && res.data.length >= 1) {
+                    const top3 = res.data.slice(0, 3);
+                    const crownColors = { 1: '#FFD700', 2: '#C0C0C0', 3: '#CD7F32' };
+                    const crownEmoji = { 1: '👑', 2: '🥈', 3: '🥉' };
+                    
+                    // 重排顺序：2, 1, 3
+                    const visualOrder = [];
+                    if (top3[1]) visualOrder.push({ ...top3[1], rank: 2 });
+                    if (top3[0]) visualOrder.push({ ...top3[0], rank: 1 });
+                    if (top3[2]) visualOrder.push({ ...top3[2], rank: 3 });
+                    
+                    let html = '';
+                    visualOrder.forEach((t, i) => {
+                        const avatar = getAvatarPath(t.avatar);
+                        const color = crownColors[t.rank];
+                        
+                        html += `
+                            <div class="rank-card rank-${t.rank}" onclick="location.href='detail.html?id=${t.id}'" style="animation-delay:${i * 0.1}s">
+                                <span class="rank-crown" style="filter:drop-shadow(0 0 10px ${color})">${crownEmoji[t.rank]}</span>
+                                <img src="${avatar}" class="rank-avatar" onerror="this.onerror=null; this.src='assets/icons/AppImages/ios/100.png';">
+                                <div class="rank-name">${escapeHtml(t.name || '未命名')}</div>
+                                <div class="rank-school">${escapeHtml(t.school || '')}</div>
+                                <div class="rank-price">¥${t.price || 0}/小时</div>
+                                <div style="margin-top:8px; font-size:0.85rem; color:var(--text-gray);">
+                                    <i class="fas fa-book-open"></i> ${t.course_count || 0} 课程
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    document.getElementById('homeLeaderboard').innerHTML = html;
+                } else {
+                    document.getElementById('homeLeaderboard').innerHTML = '<p style="text-align:center; color:var(--text-gray); grid-column:1/-1; padding:40px;">暂无排行榜数据</p>';
+                }
+            } catch (error) {
+                console.error('DEBUG: loadLeaderboard Error:', error);
+                document.getElementById('homeLeaderboard').innerHTML = '<p style="text-align:center; color:var(--text-gray); grid-column:1/-1; padding:40px;">加载失败，请刷新重试</p>';
+            }
+        }
+
+        /* ====== 🎴 无限滚动加载 ====== */
+        function initInfiniteScroll() {
+            const trigger = document.getElementById('loadTrigger');
+            
+            observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !State.isLoading && State.hasMore) {
+                        loadTutors();
+                    }
+                });
+            }, { rootMargin: '200px' });
+            
+            observer.observe(trigger);
+        }
+
+        function showSkeletons() {
+            const grid = document.getElementById('tutorGrid');
+            let skeletons = '';
+            for (let i = 0; i < 6; i++) {
+                skeletons += `
+                    <div class="skeleton-card">
+                        <div class="card-banner"></div>
+                        <div class="skeleton-avatar"></div>
+                        <div style="padding:0 28px 28px;">
+                            <div class="skeleton-text title"></div>
+                            <div class="skeleton-text tag"></div>
+                            <div class="skeleton-text meta"></div>
+                        </div>
+                    </div>
+                `;
+            }
+            grid.innerHTML = skeletons;
+        }
+
+        async function loadTutors() {
+            if (State.isLoading || !State.hasMore) return;
+            
+            State.isLoading = true;
+            document.getElementById('loadingSpinner').style.display = 'block';
+            
+            // 首次加载显示骨架屏
+            if (State.currentPage === 1) {
+                showSkeletons();
+            }
+            
+            try {
+                const params = new URLSearchParams({
+                    page: State.currentPage,
+                    limit: State.pageSize,
+                    sort: State.sortBy,
+                    search: State.searchKeyword
+                });
+                
+                // 使用 showAlert=false 避免重复弹窗
+                const data = await requestAPI(`get_tutors.php?${params}`, {}, false);
+                
+                console.log('DEBUG: get_tutors Response:', data);
+                
+                if (data && data.status === 'success') {
+                    const tutors = data.data || [];
+                    console.log('DEBUG: Tutors count:', tutors.length);
+                    
+                    // 判断是否还有更多
+                    if (tutors.length < State.pageSize) {
+                        State.hasMore = false;
+                    }
+                    
+                    // 渲染卡片
+                    renderTutorCards(tutors, State.currentPage === 1);
+                    State.currentPage++;
+                } else {
+                    console.error('DEBUG: get_tutors Error:', data?.message || '未知错误');
+                    if (State.currentPage === 1) {
+                        document.getElementById('tutorGrid').innerHTML = `
+                            <div style="grid-column:1/-1; text-align:center; padding:80px; color:var(--text-gray);">
+                                <i class="fas fa-exclamation-triangle" style="font-size:3rem; margin-bottom:20px; opacity:0.3;"></i>
+                                <p>加载失败：${data?.message || '未知错误'}</p>
+                                <button class="btn btn-primary" onclick="loadTutors()" style="margin-top:20px;">重试</button>
+                            </div>
+                        `;
+                    }
+                }
+            } catch (error) {
+                console.error('DEBUG: loadTutors Error:', error);
+                if (State.currentPage === 1) {
+                    document.getElementById('tutorGrid').innerHTML = `
+                        <div style="grid-column:1/-1; text-align:center; padding:80px; color:var(--text-gray);">
+                            <i class="fas fa-exclamation-triangle" style="font-size:3rem; margin-bottom:20px; opacity:0.3;"></i>
+                            <p>网络错误，请刷新重试</p>
+                            <button class="btn btn-primary" onclick="loadTutors()" style="margin-top:20px;">重试</button>
+                        </div>
+                    `;
+                }
+            } finally {
+                State.isLoading = false;
+                document.getElementById('loadingSpinner').style.display = 'none';
+            }
+        }
+
+        function renderTutorCards(tutors, isFirstLoad) {
+            const grid = document.getElementById('tutorGrid');
+            
+            if (isFirstLoad) {
+                grid.innerHTML = '';
+            }
+            
+            if (tutors.length === 0 && isFirstLoad) {
+                grid.innerHTML = `
+                    <div style="grid-column:1/-1; text-align:center; padding:80px; color:var(--text-gray);">
+                        <i class="fas fa-search" style="font-size:3rem; margin-bottom:20px; opacity:0.3;"></i>
+                        <p>暂无符合条件的教员</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            tutors.forEach((t, index) => {
+                const avatar = getAvatarPath(t.avatar);
+                const tags = (t.tags || [t.school, t.major, t.subject]).filter(Boolean);
+                const isVip = t.is_vip == 1;
+                const delay = index * 0.08;
+                
+                const card = document.createElement('div');
+                card.className = `tutor-card ${isVip ? 'vip' : ''}`;
+                card.style.animationDelay = `${delay}s`;
+                card.onclick = () => location.href = `detail.html?id=${t.id}`;
+                
+                card.innerHTML = `
+                    ${isVip ? '<div class="vip-badge"><i class="fas fa-crown"></i> 金牌教员</div>' : ''}
+                    <div class="card-banner"></div>
+                    <img src="${avatar}" class="card-avatar" onerror="this.onerror=null; this.src='assets/icons/AppImages/ios/100.png';">
+                    <div class="card-body">
+                        <div class="card-name">${escapeHtml(t.name || '未命名')}</div>
+                        <div class="card-tags">
+                            ${tags.slice(0, 3).map(tag => `<span class="card-tag">${escapeHtml(tag)}</span>`).join('')}
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-rating">
+                                <i class="fas fa-star"></i> ${t.rating || '5.0'}
+                            </div>
+                            <div class="card-price">¥${t.price || 0} <span>/小时</span></div>
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+        
+        // HTML转义函数（防止XSS）
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function resetAndLoadTutors() {
+            State.currentPage = 1;
+            State.hasMore = true;
+            State.sortBy = document.getElementById('filterSort').value;
+            loadTutors();
+        }
+
+        function doSearch() {
+            State.searchKeyword = document.getElementById('homeSearch').value.trim();
+            State.currentPage = 1;
+            State.hasMore = true;
+            loadTutors();
+            scrollToSection('tutors');
+        }
+
+        /* ====== 🛠️ 工具函数 ====== */
+        function getAvatarPath(avatar) {
+            const defaultAvatar = 'assets/default_boy.png';
+            if (!avatar || avatar === 'null' || avatar === 'undefined' || avatar === '') {
+                return defaultAvatar;
+            }
+            // 如果已经是完整URL，直接返回
+            if (avatar.startsWith('http://') || avatar.startsWith('https://') || avatar.startsWith('//')) {
+                return avatar;
+            }
+            // 如果已经是assets/或uploads/开头的路径，直接返回
+            if (avatar.startsWith('assets/') || avatar.startsWith('uploads/')) {
+                return avatar;
+            }
+            // 如果以/开头，去掉/后处理
+            if (avatar.startsWith('/')) {
+                avatar = avatar.substring(1);
+            }
+            // 优先使用assets目录（因为uploads可能为空）
+            return 'assets/' + avatar;
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                const offset = id === 'hero' ? 0 : 100;
+                const top = el.offsetTop - offset;
+                window.scrollTo({ top, behavior: 'smooth' });
+            }
+        }
+
+        /* ====== 👤 用户系统 ====== */
+        function updateUI(name) {
+            document.getElementById('guest-btns').style.display = 'none';
+            document.getElementById('user-btns').style.display = 'flex';
+            document.getElementById('navUsername').innerText = name || '用户';
+        }
+
+        function toggleUserMenu() {
+            const menu = document.getElementById('userDropdown');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function jumpToStudentCenter(view) {
+            location.href = `student_center.html?view=${view}`;
+        }
+
+        function logout() {
+            localStorage.clear();
+            location.reload();
+        }
+
+        /* ====== 🔐 认证 ====== */
+        function openAuth(mode) {
+            authMode = mode;
+            document.getElementById('authModal').style.display = 'flex';
+            document.getElementById('modalTitle').innerText = mode === 'login' ? '欢迎回来' : '创建账号';
+            document.getElementById('regName').style.display = mode === 'login' ? 'none' : 'block';
+            document.getElementById('authBtnText').innerText = mode === 'login' ? '登录' : '注册';
+            document.getElementById('authToggleText').innerText = mode === 'login' ? '还没有账号？立即注册' : '已有账号？立即登录';
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+        }
+
+        function toggleAuthMode() {
+            openAuth(authMode === 'login' ? 'register' : 'login');
+        }
+
+        function handleAuth() {
+            const phone = document.getElementById('authPhone').value.trim();
+            const pass = document.getElementById('authPass').value.trim();
+            const name = document.getElementById('regName').value.trim();
+            
+            if (!phone || !pass) {
+                alert('请填写完整信息');
+                return;
+            }
+            
+            const fd = new FormData();
+            fd.append('phone', phone);
+            fd.append('password', pass);
+            
+            const api = authMode === 'login' ? 'api/login.php' : 'api/register.php';
+            if (authMode === 'register') fd.append('username', name);
+            
+            requestAPI(api, { method: 'POST', body: fd })
+                .then(d => {
+                    console.log('DEBUG: Auth Response:', d);
+                    if (d.status === 'success') {
+                        if (authMode === 'register') {
+                            alert('🎉 注册成功！请登录');
+                            toggleAuthMode();
+                        } else {
+                            // 登录成功处理
+                            const username = (d.data && d.data.username) ? d.data.username : (d.username || '用户');
+                            console.log('DEBUG: Login success, username:', username);
+                            curPhone = phone;
+                            localStorage.setItem('userPhone', phone);
+                            localStorage.setItem('userName', username);
+                            updateUI(username);
+                            closeAuthModal();
+                            // 刷新页面状态
+                            location.reload();
+                        }
+                    } else {
+                        alert(d.message || '操作失败');
+                    }
+                })
+                .catch(error => {
+                    console.error('DEBUG: Auth Error:', error);
+                    // requestAPI已经alert过了，这里不需要再alert
+                });
+        }
+
+        // 点击外部关闭下拉菜单
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('userDropdown');
+            const userBtns = document.getElementById('user-btns');
+            if (dropdown && !userBtns.contains(e.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+        
+        /* ====== 📱 移动端 TabBar 逻辑 ====== */
+        async function updateTabBarBadge() {
+            const phone = localStorage.getItem('userPhone');
+            if (!phone) return;
+            
+            try {
+                // 获取未读消息数
+                const data = await requestAPI(`chat_api.php?action=get_unread_count&phone=${phone}`, {}, false);
+                const badge = document.getElementById('tabBadge');
+                if (data.count && data.count > 0) {
+                    badge.style.display = 'flex';
+                    badge.textContent = data.count > 99 ? '99+' : data.count;
+                } else {
+                    badge.style.display = 'none';
+                }
+            } catch (error) {
+                // 静默失败，不影响主功能
+                console.error('DEBUG: updateTabBarBadge Error:', error);
+            }
+        }
+        
+        // 初始化TabBar状态
+        function initTabBar() {
+            updateTabBarBadge();
+            // 每30秒更新一次未读消息
+            setInterval(updateTabBarBadge, 30000);
+        }
+        
+        // 页面加载后初始化
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initTabBar);
+        } else {
+            initTabBar();
+        }
+        
+        /* ====== 🔧 Service Worker 注册 ====== */
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('[PWA] Service Worker 注册成功:', registration.scope);
+                        
+                        // 检查更新
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // 新版本可用，提示用户
+                                    if (confirm('发现新版本，是否立即刷新？')) {
+                                        window.location.reload();
+                                    }
+                                }
+                            });
+                        });
+                    })
+                    .catch(error => {
+                        console.log('[PWA] Service Worker 注册失败:', error);
+                    });
+            });
+        }
+        
+        /* ====== 📱 PWA 安装提示 ====== */
+        let deferredPrompt = null;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            // 可以在这里显示自定义的安装按钮
+            console.log('[PWA] 可以安装为App');
+        });
+        
+        window.addEventListener('appinstalled', () => {
+            deferredPrompt = null;
+            console.log('[PWA] App 已安装');
+        });
+    </script>
+    
+    <!-- 📱 移动端底部 TabBar -->
+    <nav class="mobile-tabbar" id="mobileTabbar">
+        <a href="index.html" class="tabbar-item active" id="tab-home">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </a>
+        <a href="index.html#tutors" class="tabbar-item" id="tab-tutors" onclick="scrollToSection('tutors'); return false;">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <span>找老师</span>
+        </a>
+        <a href="student_center.html?view=courses" class="tabbar-item tabbar-item-center">
+            <div class="tabbar-center-btn">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <span>我的课程</span>
+        </a>
+        <a href="student_center.html?view=messages" class="tabbar-item" id="tab-messages">
+            <i class="fas fa-comment-dots"></i>
+            <span>消息</span>
+            <div class="tabbar-badge" id="tabBadge" style="display:none;">0</div>
+        </a>
+        <a href="student_center.html?view=profile" class="tabbar-item" id="tab-profile">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </nav>
+</body>
+</html>
+
